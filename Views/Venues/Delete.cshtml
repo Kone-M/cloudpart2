@@ -1,0 +1,58 @@
+﻿@model VenueBookingSystem.Models.Venue
+
+@{
+    ViewData["Title"] = "Delete Venue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Delete Venue</h4>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.CanDelete == false)
+                    {
+                        <div class="alert alert-warning">
+                            <i class="bi bi-info-circle"></i>
+                            This venue has active bookings and cannot be deleted.
+                        </div>
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            Are you sure you want to delete <strong>@Model.VenueName</strong>? This action cannot be undone.
+                        </div>
+
+                        <dl class="row">
+                            <dt class="col-sm-4">Venue Name</dt>
+                            <dd class="col-sm-8">@Model.VenueName</dd>
+
+                            <dt class="col-sm-4">Location</dt>
+                            <dd class="col-sm-8">@Model.Location</dd>
+
+                            <dt class="col-sm-4">Capacity</dt>
+                            <dd class="col-sm-8">@Model.Capacity</dd>
+                        </dl>
+
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="VenueID" />
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i> Delete Permanently
+                                </button>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4">Welcome to Venue Booking System</h1>
+            <p class="lead">Manage venues, events, and bookings all in one place</p>
+            <hr class="w-50 mx-auto" />
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm border-primary">
+                <div class="card-body">
+                    <i class="bi bi-building fs-1 text-primary"></i>
+                    <h3 class="mt-2" id="venueCount">Loading...</h3>
+                    <p class="text-muted">Total Venues</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm border-success">
+                <div class="card-body">
+                    <i class="bi bi-calendar-event fs-1 text-success"></i>
+                    <h3 class="mt-2" id="eventCount">Loading...</h3>
+                    <p class="text-muted">Total Events</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center shadow-sm border-warning">
+                <div class="card-body">
+                    <i class="bi bi-calendar-check fs-1 text-warning"></i>
+                    <h3 class="mt-2" id="bookingCount">Loading...</h3>
+                    <p class="text-muted">Total Bookings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightning"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <a asp-controller="Venues" asp-action="Create" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-plus-circle"></i> Add New Venue
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <a asp-controller="Events" asp-action="Create" class="btn btn-outline-success w-100">
+                                <i class="bi bi-plus-circle"></i> Add New Event
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <a asp-controller="Bookings" asp-action="Create" class="btn btn-outline-warning w-100">
+                                <i class="bi bi-plus-circle"></i> Create Booking
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Cards -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-building fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Venues</h5>
+                    <p class="card-text">Manage venue locations, capacities, and images</p>
+                    <a asp-controller="Venues" asp-action="Index" class="btn btn-primary">
+                        Manage Venues <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-calendar-event fs-1 text-success"></i>
+                    <h5 class="card-title mt-3">Events</h5>
+                    <p class="card-text">Create and manage events with dates and durations</p>
+                    <a asp-controller="Events" asp-action="Index" class="btn btn-success">
+                        Manage Events <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-calendar-check fs-1 text-warning"></i>
+                    <h5 class="card-title mt-3">Bookings</h5>
+                    <p class="card-text">Book venues for events with validation</p>
+                    <a asp-controller="Bookings" asp-action="Index" class="btn btn-warning">
+                        Manage Bookings <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Load statistics
+        $(document).ready(function() {
+            $.ajax({
+                url: '/Home/GetStatistics',
+                type: 'GET',
+                success: function(data) {
+                    $('#venueCount').text(data.venueCount);
+                    $('#eventCount').text(data.eventCount);
+                    $('#bookingCount').text(data.bookingCount);
+                },
+                error: function() {
+                    $('#venueCount').text('Error');
+                    $('#eventCount').text('Error');
+                    $('#bookingCount').text('Error');
+                }
+            });
+        });
+    </script>
+}

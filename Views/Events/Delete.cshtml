@@ -1,0 +1,54 @@
+﻿@model VenueBookingSystem.Models.Event
+
+@{
+    ViewData["Title"] = "Delete Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Delete Event</h4>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.CanDelete == false)
+                    {
+                        <div class="alert alert-warning">
+                            <i class="bi bi-info-circle"></i>
+                            This event has active bookings and cannot be deleted.
+                        </div>
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            Are you sure you want to delete <strong>@Model.EventName</strong>?
+                        </div>
+
+                        <dl class="row">
+                            <dt class="col-sm-4">Event Name</dt>
+                            <dd class="col-sm-8">@Model.EventName</dd>
+
+                            <dt class="col-sm-4">Event Date</dt>
+                            <dd class="col-sm-8">@Model.EventDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                            <dt class="col-sm-4">Organizer</dt>
+                            <dd class="col-sm-8">@Model.OrganizerName</dd>
+                        </dl>
+
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="EventID" />
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿@model VenueBookingSystem.Models.BookingViewModel
+
+@{
+    ViewData["Title"] = "Booking Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Booking Details - #@Model.BookingID
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Event Information</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4">Event Name</dt>
+                                <dd class="col-sm-8">@Model.EventName</dd>
+
+                                <dt class="col-sm-4">Description</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+
+                                <dt class="col-sm-4">Event Date</dt>
+                                <dd class="col-sm-8">@Model.EventDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                                <dt class="col-sm-4">Duration</dt>
+                                <dd class="col-sm-8">@Model.DurationHours hours</dd>
+
+                                <dt class="col-sm-4">End Time</dt>
+                                <dd class="col-sm-8">@Model.EventEndTime.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                                <dt class="col-sm-4">Organizer</dt>
+                                <dd class="col-sm-8">@Model.OrganizerName</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-success">Venue Information</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4">Venue Name</dt>
+                                <dd class="col-sm-8">@Model.VenueName</dd>
+
+                                <dt class="col-sm-4">Location</dt>
+                                <dd class="col-sm-8">@Model.Location</dd>
+
+                                <dt class="col-sm-4">Capacity</dt>
+                                <dd class="col-sm-8">@Model.Capacity people</dd>
+                            </dl>
+
+                            <h5 class="text-warning mt-3">Booking Information</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4">Booking Date</dt>
+                                <dd class="col-sm-8">@Model.BookingDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                                <dt class="col-sm-4">Status</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-success">@Model.Status</span>
+                                </dd>
+
+                                <dt class="col-sm-4">Created At</dt>
+                                <dd class="col-sm-8">@Model.BookingCreatedAt.ToString("yyyy-MM-dd HH:mm")</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.SpecialRequests))
+                    {
+                        <div class="mt-3">
+                            <h5 class="text-secondary">Special Requests</h5>
+                            <div class="alert alert-light">@Model.SpecialRequests</div>
+                        </div>
+                    }
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
+                        @if (Model.Status == "Confirmed")
+                        {
+                            <a asp-action="Delete" asp-route-id="@Model.BookingID" class="btn btn-danger">
+                                <i class="bi bi-x-circle"></i> Cancel Booking
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

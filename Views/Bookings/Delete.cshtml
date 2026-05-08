@@ -1,0 +1,69 @@
+﻿@model VenueBookingSystem.Models.BookingViewModel
+
+@{
+    ViewData["Title"] = "Cancel Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Cancel Booking
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="bi bi-info-circle"></i>
+                        Are you sure you want to cancel this booking? This action cannot be undone.
+                    </div>
+
+                    <dl class="row">
+                        <dt class="col-sm-4">Booking ID</dt>
+                        <dd class="col-sm-8">#@Model.BookingID</dd>
+
+                        <dt class="col-sm-4">Event Name</dt>
+                        <dd class="col-sm-8">@Model.EventName</dd>
+
+                        <dt class="col-sm-4">Venue Name</dt>
+                        <dd class="col-sm-8">@Model.VenueName</dd>
+
+                        <dt class="col-sm-4">Location</dt>
+                        <dd class="col-sm-8">@Model.Location</dd>
+
+                        <dt class="col-sm-4">Booking Date & Time</dt>
+                        <dd class="col-sm-8">@Model.BookingDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                        <dt class="col-sm-4">Event Date</dt>
+                        <dd class="col-sm-8">@Model.EventDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                        <dt class="col-sm-4">Status</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-success">@Model.Status</span>
+                        </dd>
+
+                        @if (!string.IsNullOrEmpty(Model.SpecialRequests))
+                        {
+                            <dt class="col-sm-4">Special Requests</dt>
+                            <dd class="col-sm-8">@Model.SpecialRequests</dd>
+                        }
+                    </dl>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="BookingID" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-check-circle"></i> Confirm Cancellation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
